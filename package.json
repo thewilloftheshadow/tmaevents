@@ -1,0 +1,22 @@
+{
+  "name": "pointstracker",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node .",
+    "prettier": "npx prettier -c * -w"
+  },
+  "author": "Shadow",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "array-pull": "^0.2.1",
+    "discord.js": "^13.3.1",
+    "dotenv": "^8.2.0",
+    "mongoose": "^5.11.17",
+    "ms": "^2.0.0",
+    "node-cmd": "^4.0.0",
+    "quick.db": "^7.1.3",
+    "shuffle-array": "^1.0.1"
+  }
+}
