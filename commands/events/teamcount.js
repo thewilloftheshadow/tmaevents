@@ -7,20 +7,16 @@ module.exports = {
     defaultPermission: true,
     options: [
       {
-        type: "STRING",
+        type: "BOOLEAN",
         name: "classes",
         description: "Count classes also?",
         required: false,
-        choices: [
-          { name: "Yes", value: "Yes" },
-          { name: "No", value: "No" },
-        ],
       },
     ],
   },
   permissions: [],
   run: async (interaction, client) => {
-    let classCount = interaction.options.get("classes")?.value == "Yes" ? true : false
+    let classCount = interaction.options.get("classes")?.value
 
     let blaze = interaction.guild.roles.cache.get(ids.blaze)
     let aqua = interaction.guild.roles.cache.get(ids.aqua)
