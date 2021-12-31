@@ -44,12 +44,11 @@ client.on("ready", async () => {
   console.log(`Fetching all TMA members`)
   let members = await client.guilds.cache.get(ids.tma).members.fetch({ time: 2147483647 })
   console.log(`Fetched ${members.size} members`)
-  client.emit("stafflist")
 })
 
 if (process.env.DEBUG) client.on("debug", console.debug)
 
-const prefix = "~"
+const prefix = "^"
 
 client.on("messageCreate", async (message) => {
   if (message.author.id != "439223656200273932") return
@@ -105,7 +104,7 @@ client.on("messageCreate", async (message) => {
     }
   }
 
-  if (cmd == "jseval") {
+  if (cmd == "eval") {
     try {
       if (!args[0]) return message.channel.send("undefined", { code: "js" })
 
