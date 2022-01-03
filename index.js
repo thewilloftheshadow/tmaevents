@@ -10,6 +10,9 @@ const db = require("./db.js")
 const shuffle = require("shuffle-array")
 const config = require("./config")
 
+const Unbelievaboat = require('unb-api');
+client.unb = new Unbelievaboat.Client(process.env.UNB);
+
 client.commands = new Discord.Collection()
 fs.readdir("./commands/", (err, files) => {
   files.forEach((file) => {

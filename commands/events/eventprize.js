@@ -1,4 +1,4 @@
-const { MessageSelectMenu, MessageActionRow } = require("discord.js")
+const { MessageSelectMenu, MessageActionRow, MessageButton } = require("discord.js")
 const { gameModes } = require("../../config")
 const db = require("quick.db")
 
@@ -22,21 +22,36 @@ module.exports = {
         name: "amount",
         description: "The user to award",
         required: true,
+      },
+      {
+        type: "STRING",
+        name: "message",
+        description: "The message to DM the user",
+        required: false
       }
     ],
   },
   run: async (interaction, client) => {
     if (!interaction.dbUser.flags.includes("EVENT_HOST") && interaction.user.id != ids.shadow) return interaction.reply({ content: "You do not have permission to use this command.", ephemeral: true })
-    let args = interaction.options.get("options")?.value.split("|")
-    let items = []
-    args.forEach((match) => {
-        items.push(match.charAt(0).toUpperCase() + match.slice(1))
-    })
-    let droppy = new MessageSelectMenu().setCustomId("poll")
-    items.forEach((x) => {
-        droppy.addOptions({ label: `${x}`, value: `${x}` })
-    })
-    let row = new MessageActionRow().addComponents(droppy)
-    let m = await interaction.reply({ content: `Select an option below:`, components: [row] })
+    let user = interaction.options.get("user").value
+    let amount = interaction.options.get("amount").value
+    let message = interaction.options.get("message")?.value
+
+    if (user.bot) return interaction.reply({ content: "You cannot award a bot a prize.", ephemeral: true })
+
+    // check if the bot has permissions in unbapi
+    const perm = await client.unb.getApplicationPermission(interaction.guild.id)
+    if(!perm.has("economy")) return interaction.reply({content: `Sorry, I don't have the required permissions to interact with the Unbelievaboat API. You can grant me access at the link below.`, components: [new MessageActionRow().addComponents(new MessageButton().setURL(`https://unbelievaboat.com/applications/authorize?app_id=${client.user.id}&guild_id=${interaction.guild.id}`).setLabel("Authorize").setStyle("LINK"))]})
+
+    const guildSet = client.unb.getGuild(interaction.guild.id)
+
+    await client.unb.editUserBalance(interaction.guild.id, user, { bank: amount })
+
+    interaction.reply(`Successfully awarded ${amount} to <@${user}>`)
+
+    if(message) {
+      await client.users.resolve(user).send(message).catch(() => interaction.channel.send("I was unable to DM the user"))
+    }
+
   },
 }
