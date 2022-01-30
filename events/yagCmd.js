@@ -1,6 +1,6 @@
 module.exports = (client) => {
-    client.on("message", (message) => {
-      if (message.author.id != "439223656200273932") return
+    client.on("messageCreate", (message) => {
+      if (message.author.id != "204255221017214977") return
   
       console.log(message.content)
   
