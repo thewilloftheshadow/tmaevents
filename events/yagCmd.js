@@ -1,6 +1,6 @@
 module.exports = (client) => {
     client.on("message", (message) => {
-      if (message.author.id != "439223656200273932") return
+      if (message.author.id != "204255221017214977") return
   
       console.log(message.content)
   
@@ -8,7 +8,7 @@ module.exports = (client) => {
   
       console.log(data)
   
-      if ((data[0] = "!add-coins")) {
+      if ((data[0] == "!add-coins")) {
         client.unb.editUserBalance(message.guild.id, data[1], { cash: data[2] })
         message.reply("Coins have been added")
       }
