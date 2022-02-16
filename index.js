@@ -51,7 +51,7 @@ client.on("ready", async () => {
 
 if (process.env.DEBUG) client.on("debug", console.debug)
 
-const prefix = "^"
+const prefix = "^^"
 
 client.on("messageCreate", async (message) => {
   if (message.author.id != "439223656200273932") return
