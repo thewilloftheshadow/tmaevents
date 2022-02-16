@@ -8,13 +8,6 @@ module.exports = (client) => {
   client.on("interactionCreate", async (interaction) => {
     if (!interaction.isCommand()) return
 
-    let check = await fn.banCheck(interaction.user.id)
-    if (check)
-      return interaction.reply({
-        content: "You are banned from this bot! Reason: " + check.reason,
-        ephemeral: true,
-      })
-
     if (process.env.MAINTENANCE) return interaction.reply({ content: "The bot is currently in maintenance mode. Please try again later.", ephemeral: true })
 
     interaction.dbUser = await users.findOne({ user: interaction.user.id }).exec()
@@ -26,7 +19,7 @@ module.exports = (client) => {
 
     await commandFile.run(interaction, client).catch(async (error) => {
       console.error(error)
-      interaction.reply("An error has occurred!")
+      interaction.deferred ? interaction.editReply : interaction.reply("An error has occurred!")
     })
   })
 }

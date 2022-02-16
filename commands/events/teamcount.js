@@ -16,15 +16,12 @@ module.exports = {
   },
   permissions: [],
   run: async (interaction, client) => {
+    if(interaction.guild.id != ids.tma) return interaction.reply({content: "This command can only be used in the main TMA server!", ephemeral: true})
     let classCount = interaction.options.get("classes")?.value
 
     let blaze = interaction.guild.roles.cache.get(ids.blaze)
     let aqua = interaction.guild.roles.cache.get(ids.aqua)
     let terra = interaction.guild.roles.cache.get(ids.terra)
-    let wizard = interaction.guild.roles.cache.get(ids.wizard)
-    let scientist = interaction.guild.roles.cache.get(ids.scientist)
-    let assassin = interaction.guild.roles.cache.get(ids.assassin)
-    let staff = interaction.guild.roles.cache.get(ids.staff)
 
     let message = ""
 
