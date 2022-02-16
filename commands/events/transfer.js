@@ -20,6 +20,9 @@ module.exports = {
   },
   run: async (interaction, client) => {
     interaction.deferReply()
+    let cd = db.get("lastRan.transfer." + interaction.user.id)
+    if(cd + ms("10m") > Date.now()) return interaction.reply({content: `You are on a cooldown! Try again in <t:${Math.floor(new Date(cd + ms("10m")) / 1000)}:R>`})
+    
     let amount = interaction.options.get("amount").value
     let bal = await client.unb.getUserBalance(ids.tma, interaction.user.id)
 
@@ -32,7 +35,7 @@ module.exports = {
     let tokens = amount - fee
 
     await client.unb.editUserBalance(interaction.guild.id, interaction.user.id, { cash: tokens }); 
-
+    db.set(`lastRan.transfer.${interaction.user.id}`, Date.now())
     interaction.editReply({content: `**Transfer success!**\n>>> Coins removed: <a:coin:567068728714330113> ${amount}\nTokens added: <:token:937722644369932368> ${tokens}\n\nFee: <a:coin:567068728714330113> ${fee}`})
 
   },
