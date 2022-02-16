@@ -25,7 +25,7 @@ module.exports = {
     if(cd + ms("10m") > Date.now()) return interaction.reply({content: `You are on a cooldown! Try again in <t:${Math.floor(new Date(cd + ms("10m")) / 1000)}:R>`})
     
     let amount = interaction.options.get("amount").value
-    if(!amount) return interaction.reply({content: "You must specify an amount to transfer"})
+    if(!amount) return interaction.editReply({content: "You must specify an amount to transfer"})
     let bal = await client.unb.getUserBalance(ids.tma, interaction.user.id)
 
     if(bal.total < amount) return interaction.editReply(`Sorry, you only have <a:coin:567068728714330113> ${bal.total}, so you can't transfer <a:coin:567068728714330113> ${amount}`)
