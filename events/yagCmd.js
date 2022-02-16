@@ -8,7 +8,7 @@ module.exports = (client) => {
   
       console.log(data)
   
-      if ((data[0] == "!add-coins")) {
+      if ((data[0] == "!add-money")) {
         client.unb.editUserBalance(message.guild.id, data[1], { cash: data[2] })
         message.reply("Coins have been added")
       }
