@@ -1,6 +1,7 @@
 const { MessageSelectMenu, MessageActionRow } = require("discord.js")
 const { gameModes } = require("../../config")
 const db = require("quick.db")
+const ms = require("ms")
 
 const { ids } = require("../../config")
 
