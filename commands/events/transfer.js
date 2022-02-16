@@ -20,7 +20,7 @@ module.exports = {
     ],
   },
   run: async (interaction, client) => {
-    interaction.deferReply()
+    await interaction.deferReply()
     let cd = db.get("lastRan.transfer." + interaction.user.id)
     if(cd + ms("10m") > Date.now()) return interaction.reply({content: `You are on a cooldown! Try again in <t:${Math.floor(new Date(cd + ms("10m")) / 1000)}:R>`})
     
