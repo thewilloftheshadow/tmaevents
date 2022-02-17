@@ -89,11 +89,12 @@ module.exports = {
       console.log(bulletPosition)
       let participants = botData.get(`russian.${interaction.channel.id}.participants`)
       let og = botData.get(`russian.${interaction.channel.id}.originalParticipants`)
-      interaction.channel.send(`**Round #${round}**`)
+
       let embed = new MessageEmbed()
         .setTitle(`**Round #${round}**`)
         .setDescription(participants.map((x) => (og.includes(x) ? `☠️ <@${x}>` : `<@${x}>`)).join("\n"))
         .setColor("RANDOM")
+      interaction.channel.send({ content: `**Round #${round}**`, embeds: [embed] })
       let activeRound = true
       let turn = 0
       await wait(7000)
