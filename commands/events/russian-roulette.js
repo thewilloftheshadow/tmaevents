@@ -20,6 +20,9 @@ module.exports = {
   },
   run: async (interaction, client) => {
     await interaction.deferReply()
+    let cd = db.get("lastRan.russian." + interaction.user.id)
+    if(cd + ms("3m") > Date.now()) return interaction.editReply({content: `You are on a cooldown! Try again in <t:${Math.floor(new Date(cd + ms("3m")) / 1000)}:R>`})
+    
 
     if (!botData.get("russian")) botData.set("russian", {})
     const data = botData.get(`russian.${interaction.channel.id}`)
@@ -54,7 +57,7 @@ module.exports = {
 
     botData.set(`russian.${interaction.channel.id}`, { bet, participants: [interaction.user.id], active: false })
 
-    interaction.editReply(`ALERT! ${interaction.user} is gathering players for a game of Russian Roulette!\nTo enter, type \`/russian-roulette\` to enter. It costs ${token} ${bet.toLocaleString()} and will start in 90 seconds.`)
+    interaction.editReply(`<a:s_siren:886258804881244242> **ALERT @here** <a:s_siren:886258804881244242>! ${interaction.user} is gathering players for a game of Russian Roulette!\nTo enter, type \`/russian-roulette\` to enter. It costs ${token} ${bet.toLocaleString()} and will start in 90 seconds.`)
 
     await wait(90000)
     botData.set(`russian.${interaction.channel.id}.active`, true)
