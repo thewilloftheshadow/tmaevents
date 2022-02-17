@@ -57,7 +57,7 @@ module.exports = {
 
     botData.set(`russian.${interaction.channel.id}`, { bet, participants: [interaction.user.id], active: false })
 
-    interaction.editReply(`<a:s_siren:886258804881244242> **ALERT** <a:s_siren:886258804881244242>!\n${interaction.user} is gathering players for a game of Russian Roulette!\nTo enter, type \`/russian-roulette\` to enter. It costs ${token} ${bet.toLocaleString()} and will start in 90 seconds.`)
+    await interaction.editReply(`<a:s_siren:886258804881244242> **ALERT** <a:s_siren:886258804881244242>!\n${interaction.user} is gathering players for a game of Russian Roulette!\nTo enter, type \`/russian-roulette\` to enter. It costs ${token} ${bet.toLocaleString()} and will start in 90 seconds.`)
     interaction.channel.send({ content: "@here", allowedMentions: { parse: { everyone: true } } })
 
     await wait(90000)
