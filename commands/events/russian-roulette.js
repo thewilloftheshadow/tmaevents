@@ -3,6 +3,7 @@ const token = `<:token:937722644369932368>`
 const botData = require("quick.db")
 const arrayPull = require("array-pull")
 const { MessageEmbed } = require("discord.js")
+const ms = require("ms")
 
 module.exports = {
   command: {
