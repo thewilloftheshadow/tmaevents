@@ -137,6 +137,6 @@ module.exports = {
         .setColor("RANDOM")
     botData.delete(`russian.${interaction.channel.id}`)
     
-    return interaction.channel.send({content: `Congratulations, ${winner}! You survived Russian Roulette and won ${token} ${winningAmount.toLocaleString()}`, embed: [embeds]})
+    return interaction.channel.send({content: `Congratulations, ${winner}! You survived Russian Roulette and won ${token} ${winningAmount.toLocaleString()}`, embeds: [embed]})
   },
 }
