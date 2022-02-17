@@ -22,8 +22,7 @@ module.exports = {
   run: async (interaction, client) => {
     await interaction.deferReply()
     let cd = botData.get("lastRan.russian." + interaction.user.id)
-    if(cd + ms("3m") > Date.now()) return interaction.editReply({content: `You are on a cooldown! Try again in <t:${Math.floor(new Date(cd + ms("3m")) / 1000)}:R>`})
-    
+    if (cd + ms("3m") > Date.now()) return interaction.editReply({ content: `You are on a cooldown! Try again in <t:${Math.floor(new Date(cd + ms("3m")) / 1000)}:R>` })
 
     if (!botData.get("russian")) botData.set("russian", {})
     const data = botData.get(`russian.${interaction.channel.id}`)
@@ -58,7 +57,8 @@ module.exports = {
 
     botData.set(`russian.${interaction.channel.id}`, { bet, participants: [interaction.user.id], active: false })
 
-    interaction.editReply(`<a:s_siren:886258804881244242> **ALERT @here** <a:s_siren:886258804881244242>! ${interaction.user} is gathering players for a game of Russian Roulette!\nTo enter, type \`/russian-roulette\` to enter. It costs ${token} ${bet.toLocaleString()} and will start in 90 seconds.`)
+    interaction.editReply(`<a:s_siren:886258804881244242> **ALERT** <a:s_siren:886258804881244242>!\n${interaction.user} is gathering players for a game of Russian Roulette!\nTo enter, type \`/russian-roulette\` to enter. It costs ${token} ${bet.toLocaleString()} and will start in 90 seconds.`)
+    interaction.channel.send({ content: "@here", allowedMentions: { parse: { everyone: true } } })
 
     await wait(90000)
     botData.set(`russian.${interaction.channel.id}.active`, true)
@@ -81,16 +81,19 @@ module.exports = {
     let round = 1
     let activeGame = true
     let winner
-	botData.set(`russian.${interaction.channel.id}.originalParticipants`, newData.participants)
+    botData.set(`russian.${interaction.channel.id}.originalParticipants`, newData.participants)
 
     while (activeGame) {
       let chamberPosition = 0
       const bulletPosition = Math.floor(Math.random() * chamber)
-	  console.log(bulletPosition)
+      console.log(bulletPosition)
       let participants = botData.get(`russian.${interaction.channel.id}.participants`)
       let og = botData.get(`russian.${interaction.channel.id}.originalParticipants`)
       interaction.channel.send(`**Round #${round}**`)
-	  let embed = new MessageEmbed().setTitle(`**Round #${round}**`).setDescription(participants.map(x => og.includes(x) ? `☠️ <@${x}>` : `<@${x}>`).join("\n")).setColor("RANDOM")
+      let embed = new MessageEmbed()
+        .setTitle(`**Round #${round}**`)
+        .setDescription(participants.map((x) => (og.includes(x) ? `☠️ <@${x}>` : `<@${x}>`)).join("\n"))
+        .setColor("RANDOM")
       let activeRound = true
       let turn = 0
       await wait(7000)
