@@ -92,7 +92,7 @@ module.exports = {
 
       let embed = new MessageEmbed()
         .setTitle(`**Round #${round}**`)
-        .setDescription(participants.map((x) => (og.includes(x) ? `☠️ <@${x}>` : `<@${x}>`)).join("\n"))
+        .setDescription(og.map((x) => (participants.includes(x) ? `<@${x}>` : `☠️ <@${x}>`)).join("\n"))
         .setColor("RANDOM")
       interaction.channel.send({ content: `**Round #${round}**`, embeds: [embed] })
       let activeRound = true
