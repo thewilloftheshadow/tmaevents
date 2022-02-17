@@ -128,7 +128,15 @@ module.exports = {
     }
 
     await client.unb.editUserBalance(interaction.guild.id, winner.id, { cash: winningAmount })
+    let participants = botData.get(`russian.${interaction.channel.id}.participants`)
+      let og = botData.get(`russian.${interaction.channel.id}.originalParticipants`)
+
+      let embed = new MessageEmbed()
+        .setTitle(`**Round #${round}**`)
+        .setDescription(og.map((x) => (participants.includes(x) ? `<@${x}>` : `☠️ <@${x}>`)).join("\n"))
+        .setColor("RANDOM")
     botData.delete(`russian.${interaction.channel.id}`)
-    return interaction.channel.send(`Congratulations, ${winner}! You survived Russian Roulette and won ${token} ${winningAmount.toLocaleString()}`)
+    
+    return interaction.channel.send({content: `Congratulations, ${winner}! You survived Russian Roulette and won ${token} ${winningAmount.toLocaleString()}`, embed: [embeds]})
   },
 }
