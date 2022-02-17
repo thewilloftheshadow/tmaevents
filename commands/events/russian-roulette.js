@@ -20,7 +20,7 @@ module.exports = {
   },
   run: async (interaction, client) => {
     await interaction.deferReply()
-    let cd = db.get("lastRan.russian." + interaction.user.id)
+    let cd = botData.get("lastRan.russian." + interaction.user.id)
     if(cd + ms("3m") > Date.now()) return interaction.editReply({content: `You are on a cooldown! Try again in <t:${Math.floor(new Date(cd + ms("3m")) / 1000)}:R>`})
     
 
