@@ -21,8 +21,6 @@ module.exports = {
   },
   run: async (interaction, client) => {
     await interaction.deferReply()
-    let cd = botData.get("lastRan.russian." + interaction.user.id)
-    if (cd + ms("3m") > Date.now()) return interaction.editReply({ content: `You are on a cooldown! Try again in <t:${Math.floor(new Date(cd + ms("3m")) / 1000)}:R>` })
 
     if (!botData.get("russian")) botData.set("russian", {})
     const data = botData.get(`russian.${interaction.channel.id}`)
@@ -43,6 +41,9 @@ module.exports = {
 
       return interaction.editReply(`You have successfully joined the game!`)
     }
+
+    let cd = botData.get("lastRan.russian." + interaction.user.id)
+    if (cd + ms("3m") > Date.now()) return interaction.editReply({ content: `You are on a cooldown! Try again in <t:${Math.floor(new Date(cd + ms("3m")) / 1000)}:R>` })
 
     if (!interaction.options.get("amount")?.value) return interaction.editReply("You must provide an amount to start a Russian Roulette match.")
     const bet = Math.floor(parseInt(interaction.options.get("amount")?.value))
