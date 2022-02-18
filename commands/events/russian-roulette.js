@@ -133,7 +133,7 @@ module.exports = {
 
       let embed = new MessageEmbed()
         .setTitle(`**Round #${round}**`)
-        .setDescription(og.map((x) => (participants.includes(x) ? `<@${x}>` : `☠️ <@${x}>`)).join("\n"))
+        .setDescription(og.map((x) => (participants.includes(x) ? `<:spacer:944114735861858365> <@${x}>` : `☠️ <@${x}>`)).join("\n"))
         .setColor("RANDOM")
     botData.delete(`russian.${interaction.channel.id}`)
     
