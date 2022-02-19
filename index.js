@@ -36,10 +36,7 @@ fs.readdir("./commands/", (err, files) => {
   })
 })
 
-const eventFiles = fs.readdirSync("./events").filter((file) => file.endsWith(".js"))
-for (const file of eventFiles) {
-  require(`./events/${file}`)(client)
-}
+
 
 //Bot on startup
 client.on("ready", async () => {
@@ -47,6 +44,11 @@ client.on("ready", async () => {
   console.log(`Fetching all TMA members`)
   let members = await client.guilds.cache.get(ids.tma).members.fetch({ time: 2147483647 })
   console.log(`Fetched ${members.size} members`)
+  const eventFiles = fs.readdirSync("./events").filter((file) => file.endsWith(".js"))
+for (const file of eventFiles) {
+  require(`./events/${file}`)(client)
+  console.log(`Loaded event ${file}`)
+}
 })
 
 if (process.env.DEBUG) client.on("debug", console.debug)
