@@ -25,7 +25,7 @@ module.exports = (client) => {
 
     }
   
-    setInterval(bingo, ms("20m"))
+    setInterval(bingo, ms("15m"))
     
     bingo()
   }
