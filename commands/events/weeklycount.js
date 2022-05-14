@@ -18,7 +18,7 @@ module.exports = {
 
     await Promise.all(
         wr.map(async id => {
-            let role = await message.guild.roles.resolve(id)
+            let role = await interaction.guild.roles.resolve(id)
             message += `<@&${id}>: ${role?.members?.cache.size || 0} players`
         })
     )
