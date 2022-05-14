@@ -23,6 +23,6 @@ module.exports = {
         })
     )
 
-    interaction.reply({content: message, allowedMentions: {roles: []}})
+    interaction.editReply({content: message, allowedMentions: {roles: []}})
   },
 }
