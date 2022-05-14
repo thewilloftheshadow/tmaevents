@@ -14,12 +14,12 @@ module.exports = {
     
     let wr = ids.weekly
 
-    let message = ""
+    let message = "**__Weekly Stats__**\n>>> "
 
     await Promise.all(
         wr.map(async id => {
-            let role = await interaction.guild.roles.resolve(id)
-            message += `<@&${id}>: ${role?.members?.cache?.size || 0} players`
+            let role = interaction.guild.roles.resolve(id)
+            message += `<@&${id}>: ${role?.members?.size || 0} players\n`
         })
     )
 
